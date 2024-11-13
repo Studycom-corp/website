@@ -1,5 +1,5 @@
 <template>
-    <div class="app-shell h-full grid">
+    <div class="h-full" :class="{'inboxLayout': $route.name == 'inbox', 'app-shell': $route.name != 'inbox'}">
         <div class="side-bar sm:border-r border-gray-600">
             <div class="hidden sm:block h-full">
                 <div v-if="!accountStore.drawer" class="h-full">
@@ -26,15 +26,15 @@
                         </svg>
                     </div>
                 </div>
-                <div v-if="accountStore.drawer" class="h-full fixed top-0 left-0 bottom-0">
+                <div v-if="accountStore.drawer" class="h-full fixed top-0 left-0 bottom-0 z-50">
                     <mobileDrawer/>
                 </div>
             </div>
         </div>
-        <div class="main">
+        <div class="main h-full overflow-hidden">
             <RouterView/>
         </div>
-        <div class="footer sm:hidden">
+        <div class="footer sm:hidden" :class="{'hidden': $route.name == 'inbox'}">
             <mobileFooter/>
         </div>
     </div>
@@ -66,26 +66,45 @@
 <style scoped>
 @media (min-width: 640px) {
     .app-shell{
+        display: grid;
         grid-template-columns: min-content 1fr;
         grid-template-rows: 100%;
         grid-template-areas: "sideBar main";
+    }
+
+    .inboxLayout {
+        display: grid;
+        grid-template-rows: 100%;
+        grid-template-areas: "sideBar main";
+        grid-template-columns: min-content 1fr;
     }
 }
 @media (max-width: 639px) {
     .app-shell{
         grid-template-columns: 100%;
         grid-template-areas: "sideBar" "main" "footer";
-        grid-template-rows: min-content 1fr min-content;
+        grid-template-rows: min-content 1fr auto;
+    }
+
+    .inboxLayout {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-areas: "sideBar" "main";
+        grid-template-rows: min-content 1fr;
     }
 }
+
 .side-bar{
     grid-area: sideBar;
+    height: 100%;
 }
 .main{
     grid-area: main;
+    height: 100%;
 }
 .footer{
     grid-area: footer;
+    height: 100%;
 }
 
 </style>

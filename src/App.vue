@@ -39,3 +39,17 @@
     </div>
 </template>
 
+<style>
+.tiny-scrollbar{
+  @apply scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent
+}
+
+@layer {
+  .scrollbar-rounded::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5rem;
+  }
+}
+
+
+</style>

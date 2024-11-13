@@ -1,7 +1,7 @@
 <template>
     <div class="profile h-full grid">
-        <div class="header hidden sm:block">
-            <header_layout this-page="profile"/>
+        <div class="profile-header hidden sm:block">
+            <header_layout this-page="profile" bottom-border/>
         </div>
         <div class="profile-body block sm:grid h-full">
             <div class="profile-aside hidden sm:block w-56 h-full border-r dark:border-r-gray-600">
@@ -65,18 +65,18 @@
                         <general/>
 
                         <div class="sticky top-0 text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
-                            <ul class="flex flex-wrap -mb-px">
+                            <ul class="flex -mb-px justify-evenly">
                                 <li class="me-2">
-                                    <span @click="selectTab('spaces')" class="inline-block font-medium p-4 border-b-2 rounded-t-lg" :class="{'text-blue-600 border-blue-600 dark:text-blue-500 dark:border-blue-500': activeTab == 'spaces', 'border-transparent': activeTab != 'spaces'}">Spaces</span>
+                                    <span @click="selectTab('spaces')" class="inline-block font-medium p-4 px-2 border-b-4 rounded-t-lg" :class="{'text-blue-600 border-blue-600 dark:text-blue-500 dark:border-blue-500': activeTab == 'spaces', 'border-transparent': activeTab != 'spaces'}">Spaces</span>
                                 </li>
                                 <li class="me-2">
-                                    <span @click="selectTab('channels')" class="inline-block font-medium p-4 border-b-2  rounded-t-lg" :class="{'text-blue-600 border-blue-600 dark:text-blue-500 dark:border-blue-500': activeTab == 'channels', 'border-transparent': activeTab != 'channels'}">Channels</span>
+                                    <span @click="selectTab('channels')" class="inline-block font-medium p-4 px-2 border-b-4  rounded-t-lg" :class="{'text-blue-600 border-blue-600 dark:text-blue-500 dark:border-blue-500': activeTab == 'channels', 'border-transparent': activeTab != 'channels'}">Channels</span>
                                 </li>
                                 <li class="me-2">
-                                    <span @click="selectTab('libraries')" class="inline-block font-medium p-4 border-b-2 rounded-t-lg" :class="{'text-blue-600 border-blue-600 dark:text-blue-500 dark:border-blue-500': activeTab == 'libraries', 'border-transparent': activeTab != 'libraries'}">Libraries</span>
+                                    <span @click="selectTab('libraries')" class="inline-block font-medium p-4 px-2 border-b-4 rounded-t-lg" :class="{'text-blue-600 border-blue-600 dark:text-blue-500 dark:border-blue-500': activeTab == 'libraries', 'border-transparent': activeTab != 'libraries'}">Libraries</span>
                                 </li>
                                 <li class="me-2">
-                                    <span  @click="selectTab('posts')" class="inline-block font-medium p-4 border-b-2 rounded-t-lg" :class="{'text-blue-600 border-blue-600 dark:text-blue-500 dark:border-blue-500': activeTab == 'posts', 'border-transparent': activeTab != 'posts'}">Posts</span>
+                                    <span  @click="selectTab('posts')" class="inline-block font-medium p-4 px-2 border-b-4 rounded-t-lg" :class="{'text-blue-600 border-blue-600 dark:text-blue-500 dark:border-blue-500': activeTab == 'posts', 'border-transparent': activeTab != 'posts'}">Posts</span>
                                 </li>
                             </ul>
                         </div>
@@ -144,7 +144,7 @@
 .profile-aside{
     grid-area: aside;
 }
-.header{
+.profile-header{
     grid-area: header;
 }
 .profile-main{
