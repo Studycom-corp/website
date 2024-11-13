@@ -101,13 +101,11 @@
     import libraries from '@/components/profile/libraries.vue';
     import channels from '@/components/profile/channels.vue';
 
-    import { useAccountStore } from '@/stores/account';
     import { useBreadCrumb } from '@/stores/bread_cramb';
     import { useProfileStore } from '@/stores/profile';
     import { computed } from 'vue';
-    import { onMounted, ref } from 'vue';
+    import { onMounted } from 'vue';
 
-    const accountStore = useAccountStore()
     const bread_cramb = useBreadCrumb()
     const profileStore = useProfileStore()
     const activeTab = computed(() => profileStore.active_tab)

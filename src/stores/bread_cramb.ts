@@ -11,7 +11,7 @@ export const useBreadCrumb = defineStore('breadCrumb', {
     actions: {
         push(item: string) {
             this.items.push(item)
-            this.level += this.level
+            this.level += 1
         },
 
         rebuild(item: string) {

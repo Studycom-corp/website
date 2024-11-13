@@ -3,12 +3,12 @@
         <img class="w-8 h-8 rounded-full" src="/user1.webp" alt="Jese image">
         <div class="flex flex-col w-full max-w-full leading-1.5 relative">
             <div class="flex items-center justify-between rtl:space-x-reverse">
-                <span class="text-sm text-gray-900 dark:text-white">Bonnie Green</span>
+                <span class="text-sm text-gray-900 dark:text-white">{{ message?.receiver }}</span>
                 <span class="text-xs text-gray-500 dark:text-gray-400 font-light">{{ message?.sentAt }}</span>
             </div>
 
             <div class="flex w-full">
-                <div class="p-2 py-1 w-full relative border border-gray-200 dark:border-slate-700 rounded-md">
+                <div class="p-2 py-1 w-full relative border border-slate-300 dark:border-slate-700 rounded-md">
 
                     <!-- Message area -->
 
@@ -23,7 +23,7 @@
                     </svg>
                 </button>
             </div>
-            <div v-if="actionBox == msg_id" @mouseleave="showActionBox('none')" id="dropdownDots" class="absolute top-5 -right-32 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600">
+            <div v-if="actionBox == msg_id" @mouseleave="showActionBox('none')" id="dropdownDots" class="absolute top-5 -right-32 z-10 bg-slate-200 border border-slate-300 divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-slate-800 dark:divide-gray-600">
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton">
                     <li>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Reply</a>

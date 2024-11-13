@@ -11,7 +11,7 @@
                     </li>
                 </ul>
                 <ul v-if="inboxStore.chats.length > 0" class="p-2 space-y-2">
-                    <li @click="inboxStore.loadChat(chat.id)" v-for="(chat) in inboxStore.chats" :key="chat.id" class="flex space-x-2 cursor-pointer p-2.5 bg-slate-800 rounded w-full relative" :class="{'border border-blue-500': inboxStore.loadedChat?.id == chat.id}">
+                    <li @click="inboxStore.loadChat(chat.id)" v-for="(chat) in inboxStore.chats" :key="chat.id" class="flex space-x-2 cursor-pointer p-2.5 bg-slate-200 dark:bg-slate-800 rounded w-full relative" :class="{'border border-blue-500': inboxStore.loadedChat?.id == chat.id}">
                         <div class="w-10 h-10 overflow-hidden rounded-full">
                             <img src="/user1.webp" alt="counterpart" class="w-ful h-full object-cover">
                         </div>

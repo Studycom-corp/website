@@ -33,7 +33,7 @@
 </script>
 
 <template>
-    <div class="h-screen bg-gray-50 dark:bg-gray-900 dark:text-white text-slate-900">
+    <div class="h-screen bg-gray-50 dark:bg-gray-900 dark:text-white text-slate-800">
         <error_banner/>
         <RouterView />
     </div>
