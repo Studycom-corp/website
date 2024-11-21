@@ -11,7 +11,15 @@ export const useLibraryStore = defineStore('library', {
                 id: "dnw80234u98", name: "Assembly language",
                 owner: "Aine Dickson", createdAt: "23:23",
                 updatedAt: "23:23",
-                folders: []
+                folders: [
+                    {
+                        id: "uw3g83ihn",
+                        createdAt: "23:40",
+                        updatedAt: "23:40",
+                        name: "Physics",
+                        files: []
+                    }
+                ]
             },
             {
                 id: "kdbi7ew234", name: "Low level systems",
@@ -35,6 +43,10 @@ export const useLibraryStore = defineStore('library', {
             }
 
             this.loadedLibrary = this.libraries[libIndex]
+        },
+
+        unloadLibrary() {
+            this.loadedLibrary = undefined
         },
 
         selectFilterTab(filterName: string) {

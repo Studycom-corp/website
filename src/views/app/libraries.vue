@@ -3,7 +3,7 @@
         <div class="library-header hidden sm:block">
             <header_layout this-page="library" bottom-border is-create-btn/>
         </div>
-        <div class="library-body block sm:grid h-full relative">
+        <div class="library-body sm:grid h-full relative">
             <div v-if="creationState" class="absolute z-20 top-4 w-full flex items-center justify-center">
                 <div @click="toggleCreation(false, 'library')" class="h-16 w-16 flex justify-center items-center rounded-full bg-slate-700 bg-opacity-50">
                     <svg class="w-8 h-8 cursor-pointer text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -16,7 +16,7 @@
                 <createForm :source="creationSource"/>
             </div>
 
-            <div class="libraries-list hidden sm:block w-72 h-full border-l dark:border-l-gray-600 overflow-y-auto tiny-scrollbar">
+            <div class="libraries-list w-full sm:w-72 h-full sm:border-l dark:border-l-gray-600 overflow-y-auto tiny-scrollbar" :class="{'sm:block': !libraryStore.loadedLibrary, 'hidden sm:block': libraryStore.loadedLibrary}">
                 <ul v-if="libraryStore.libraries.length > 0" class="p-2 space-y-2">
                     <li @click="selectLibrary(library.id, library.name)" v-for="(library) in libraryStore.libraries" :key="library.id" class="flex space-x-2 cursor-pointer p-2.5 dark:bg-slate-800 bg-slate-200 rounded w-full relative" :class="{'border border-blue-500': libraryStore.loadedLibrary?.id == library.id}">
                         <div class="w-full flex flex-col items-start space-y-1">
@@ -36,7 +36,8 @@
             </div>
 
             <!-- library main section -->
-            <div class="library-main h-full">
+            <div class="library-main h-full" :class="{'sm:grid': libraryStore.loadedLibrary, 'hidden sm:grid': !libraryStore.loadedLibrary}">
+
 
                 <!-- Filter tags for folders' content preview -->
                 <div v-if="libraryStore.loadedLibrary" class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
@@ -60,6 +61,14 @@
                             <span @click="activateFilter('trash')" class="inline-block p-4 border-b-2 cursor-pointer rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" :class="{'activeFilter': libraryStore.activeFilter == 'trash', 'inactiveFilter': libraryStore.activeFilter != 'trash'}">Trash</span>
                         </li>
                     </ul>
+                </div>
+
+                <!-- Close library chevron button -->
+                <div v-if="libraryStore.loadedLibrary" @click="libraryStore.unloadLibrary" class="sm:hidden w-min p-1 flex items-center">
+                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m17 16-4-4 4-4m-6 8-4-4 4-4"/>
+                    </svg>
+                    <span class="text-lg">Back</span>
                 </div>
 
                 <div v-if="libraryStore.loadedLibrary" class="h-full overflow-y-auto tiny-scrollbar">

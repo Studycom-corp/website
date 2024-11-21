@@ -16,5 +16,9 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  server: {
+    host: true, // Allows access from external devices
+    port: 5173,      // Ensure it matches the port Tauri expects
+  },
 })

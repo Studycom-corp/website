@@ -1,8 +1,11 @@
 <template>
     <div class="inbox h-full">
-        <div class="inbox-body block sm:grid h-full">
-            <div class="chat-list relative hidden sm:block w-72 h-full border-l dark:border-l-gray-600 overflow-y-auto tiny-scrollbar">
-                <ul class="flex sticky top-0 z-20 dark:bg-gray-900 items-stretch flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+        <div class="inbox-body sm:grid h-full">
+            <div class="chat-list relative w-full sm:w-72 h-full sm:border-l dark:border-l-gray-600 overflow-y-auto tiny-scrollbar" :class="{'sm:block': !inboxStore.loadedChat, 'hidden sm:block': inboxStore.loadedChat}">
+
+                <!-- Large screen filter tabs for chats (private/group) -->
+                <!-- Only visible for large screen -->
+                <ul class="hidden sm:flex sticky top-0 z-20 dark:bg-gray-900 items-stretch flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
                     <li @click="inboxStore.activateList('private')" class="w-[50%] cursor-pointer p-4" :class="{'activeChatList': inboxStore.activeList == 'private', 'inactiveChatList' : inboxStore.activeList != 'privte'}">
                         <span>Private</span>
                     </li>
@@ -10,8 +13,10 @@
                         <span>Group</span>
                     </li>
                 </ul>
+
+                <!-- Chats list for both small and large screens -->
                 <ul v-if="inboxStore.chats.length > 0" class="p-2 space-y-2">
-                    <li @click="inboxStore.loadChat(chat.id)" v-for="(chat) in inboxStore.chats" :key="chat.id" class="flex space-x-2 cursor-pointer p-2.5 bg-slate-200 dark:bg-slate-800 rounded w-full relative" :class="{'border border-blue-500': inboxStore.loadedChat?.id == chat.id}">
+                    <li @click="inboxStore.loadChat(chat.id)" v-for="(chat) in inboxStore.chats.filter(chat => chat.type == inboxStore.activeList)" :key="chat.id" class="flex space-x-2 cursor-pointer p-2.5 bg-slate-200 dark:bg-slate-800 rounded w-full relative" :class="{'border border-blue-500': inboxStore.loadedChat?.id == chat.id}">
                         <div class="w-10 h-10 overflow-hidden rounded-full">
                             <img src="/user1.webp" alt="counterpart" class="w-ful h-full object-cover">
                         </div>
@@ -29,13 +34,14 @@
             </div>
 
             <!-- inbox main section -->
-            <div class="inbox-main grid h-full">
+            <!-- Displays only if there's a selected chat for small screens(mobile) -->
+            <div class="inbox-main h-full" :class="{'grid': inboxStore.loadedChat, 'hidden sm:grid': !inboxStore.loadedChat}">
                 <div class="chat-header">
                     <chat_header/>
                 </div>
                 <div class="messages overflow-y-auto tiny-scrollbar">
                     <ul v-if="inboxStore.loadedChat" class="px-2 pt-1">
-                        <li v-for="(message, index) in inboxStore.loadedChat?.messages" :key="message.id" class="w-full flex ">
+                        <li v-for="(message, index) in inboxStore.loadedChat?.messages" :key="message.id" class="w-full flex" :class="{'justify-end': message.senderEmail == accountStore.user.email_address}">
                             <message :msg_id="message.id"/>
                         </li>
                     </ul>
@@ -61,8 +67,10 @@
     import message from '@/components/inbox/message.vue'
 
     import { useInboxStore } from '@/stores/inbox';
+import { useAccountStore } from '@/stores/account';
 
     const inboxStore = useInboxStore()
+    const accountStore = useAccountStore()
 
 </script>
 

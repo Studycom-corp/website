@@ -1,13 +1,23 @@
 <template>
     <nav class="shadow h-full">
-        <div class="flex flex-wrap items-center justify-between mx-auto p-3">
-            <div class="flex space-x-4">
-                <div class="h-12 w-12 rounded-full overflow-hidden border-2 border-blue-500 dark:border-blue-600">
-                    <img src="/user1.webp" class="h-full w-full object-cover" alt="Flowbite Logo" />
-                </div>
-                <div>
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Physics simulations</span>
-                    <span class="block text-gray-500 font-light text-sm">Online</span>
+        <div class="flex flex-wrap items-center justify-between mx-auto py-3 sm:px-3">
+            <div class="flex items-center">
+                <!-- Close chat arrow button -->
+                <svg @click="inboxStore.unloadChat" class="w-6 h-10 sm:hidden text-lg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                </svg>
+
+                <div class="space-x-4 flex items-center">
+                    <!-- Chat Dispaly photo -->
+                    <div class="h-12 w-12 rounded-full overflow-hidden border-2 border-blue-500 dark:border-blue-600">
+                        <img src="/user1.webp" class="h-full w-full object-cover" alt="Flowbite Logo" />
+                    </div>
+    
+                    <!-- Chat info -->
+                    <div>
+                        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{ loadedChat?.title }}</span>
+                        <span class="block text-gray-500 font-light text-sm">Online</span>
+                    </div>
                 </div>
             </div>
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
@@ -24,3 +34,11 @@
     </nav>
 
 </template>
+
+<script lang="ts" setup>
+    import { useInboxStore } from '@/stores/inbox';
+    import { computed } from 'vue';
+
+    const inboxStore = useInboxStore()
+    const loadedChat = computed(() => inboxStore.loadedChat)
+</script>
