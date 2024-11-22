@@ -23,8 +23,9 @@ export const useAccountStore = defineStore('account', {
     let darkMode = true;
     let drawer = false
     let active_nav = 'home'
+    let bottomSheet: {active:boolean, source: string} = {active: false, source: ''}
 
-    return { isUser, user, reset_period, darkMode, drawer, active_nav }
+    return { isUser, user, reset_period, darkMode, drawer, active_nav, bottomSheet }
   },
 
   actions: {
@@ -49,6 +50,11 @@ export const useAccountStore = defineStore('account', {
           app.classList.remove('dark')
         }
       }
+    },
+
+    switchBottomSheet(state: boolean, source: string) {
+      this.bottomSheet.active = state
+      this.bottomSheet.source = source
     },
 
     toggleDrawer() {

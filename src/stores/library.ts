@@ -5,6 +5,7 @@ import { api } from "@/router/api";
 export const useLibraryStore = defineStore('library', {
     state() {
         let loadedLibrary: Library | undefined;
+        let loadedFolder: Folder | undefined
         let activeFilter: string | undefined
         let libraries: Library[] = [
             {
@@ -18,7 +19,36 @@ export const useLibraryStore = defineStore('library', {
                         updatedAt: "23:40",
                         name: "Physics",
                         files: []
-                    }
+                    },
+                    {
+                        id: "iNA8729JD",
+                        createdAt: "23:40",
+                        updatedAt: "23:40",
+                        name: "Biology",
+                        files: []
+                    },
+                    {
+                        id: "SIewujw9",
+                        createdAt: "23:40",
+                        updatedAt: "23:40",
+                        name: "Math",
+                        files: []
+                    },
+                    {
+                        id: "Sdkwbics39",
+                        createdAt: "23:40",
+                        updatedAt: "23:40",
+                        name: "Chemistry",
+                        files: []
+                    },
+                    {
+                        id: "lnwfei383",
+                        createdAt: "23:40",
+                        updatedAt: "23:40",
+                        name: "Economics",
+                        files: []
+                    },
+                    
                 ]
             },
             {
@@ -29,7 +59,7 @@ export const useLibraryStore = defineStore('library', {
             },
         ]
 
-        return { loadedLibrary, libraries, activeFilter }
+        return { loadedLibrary, libraries, activeFilter, loadedFolder }
     },
 
     actions: {
@@ -47,6 +77,22 @@ export const useLibraryStore = defineStore('library', {
 
         unloadLibrary() {
             this.loadedLibrary = undefined
+        },
+
+        loadFolder(folderId: string) {
+            const folderIndex = this.loadedLibrary?.folders.findIndex(folder => folder.id == folderId)
+
+            if (folderIndex == undefined) {
+                const errorHandler = useErrorHandle()
+                errorHandler.alertError("Error while loading folder content, refresh page & try again")
+                return
+            }
+
+            this.loadedFolder = this.loadedLibrary?.folders[folderIndex]
+        },
+
+        unloadFolder() {
+            this.loadedFolder = undefined
         },
 
         selectFilterTab(filterName: string) {

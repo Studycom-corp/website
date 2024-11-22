@@ -67,7 +67,7 @@
     import message from '@/components/inbox/message.vue'
 
     import { useInboxStore } from '@/stores/inbox';
-import { useAccountStore } from '@/stores/account';
+    import { useAccountStore } from '@/stores/account';
 
     const inboxStore = useInboxStore()
     const accountStore = useAccountStore()
