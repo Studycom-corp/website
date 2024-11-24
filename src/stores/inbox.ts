@@ -7,6 +7,14 @@ export const useInboxStore = defineStore('inbox', {
         let loadedChat: Chat | undefined;
         let chats: Chat[] = [
             {
+                id: 'hsf3i29lh',
+                createdAt: '22:40',
+                updatedAt: '22:40',
+                title: 'KYUCSA',
+                type: 'group',
+                messages: []
+            },
+            {
                 id: "syf9wh923",
                 createdAt: "23:45",
                 updatedAt: "23:45",

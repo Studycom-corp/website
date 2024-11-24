@@ -1,12 +1,17 @@
 <template>
-    <div @touchstart="startDrag" @touchmove="drag" @touchend="endDrag" ref="bottomSheet" :class="{'hidden': !accountStore.bottomSheet.active, 'block sm:hidden': accountStore.bottomSheet.active}" class="absolute bottom-0 h-auto sm:hidden bg-gray-50 dark:bg-gray-900 w-full pt-2 rounded-t-2xl border-t border-t-gray-500 dark:border-t-gray-300">
+  <div>
+    <div v-if="accountStore.bottomSheet.active == true" @click.self.stop="closeSheet" class="absolute z-40 top-0 bottom-0 w-full bg-gray-900 bg-opacity-50">
+    </div>
+    <div @touchstart="startDrag" @touchmove="drag" @touchend="endDrag" ref="bottomSheet" :class="{'hidden': accountStore.bottomSheet.active ==false, 'block sm:hidden': accountStore.bottomSheet.active}" class="absolute z-50 bottom-0 h-auto sm:hidden bg-gray-50 dark:bg-gray-900 w-full pt-2 rounded-t-2xl border-t border-t-gray-500 dark:border-t-gray-300">
         <div class="w-[30%] border-b-4 border-b-gray-400 m-auto rounded-full"></div>
         <div class="bottom-sheet p-4"></div>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
     import { useAccountStore } from '@/stores/account';
+    import { useLibraryStore } from '@/stores/library';
     import { ref } from 'vue';
 
     const accountStore = useAccountStore()
@@ -31,8 +36,7 @@
 
       if (deltaY.value > 100) {
         // If dragged down sufficiently, close the bottom sheet
-        
-        accountStore.switchBottomSheet(false, '');
+        closeSheet()
         if (bottomSheet.value) {
             bottomSheet.value.style.transform = `translateY(0)`;
         }
@@ -47,7 +51,7 @@
     const endDrag = () => {
       if (deltaY.value > 100) {
         // If dragged down sufficiently, close the bottom sheet
-        accountStore.switchBottomSheet(false, '');
+        closeSheet()
         if (bottomSheet.value) {
             bottomSheet.value.style.transform = `translateY(0)`;
         }
@@ -58,4 +62,9 @@
         }
       }
     };
+
+    const closeSheet = ()=> {
+      accountStore.switchBottomSheet(false, '');
+      useLibraryStore().switchCreationState(false, '')
+    }
 </script>

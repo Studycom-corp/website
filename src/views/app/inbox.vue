@@ -22,9 +22,9 @@
                         </div>
                         <div class="w-[81%] flex flex-col items-start">
                             <span class="font-bold text-md max-w-full truncate">{{ chat.title }}</span>
-                            <span class="max-w-full truncate text-gray-500 text-sm font-light">{{ chat.messages[chat.messages.length-1].value }}</span>
+                            <span class="max-w-full truncate text-gray-500 text-sm font-light">{{ chat.messages[chat.messages.length-1]?.value }}</span>
                         </div>
-                        <span class="absolute right-1 bottom-0 font-thin text-xs">{{ chat.messages[chat.messages.length-1].sentAt }}</span>
+                        <span class="absolute right-1 bottom-0 font-thin text-xs">{{ chat.messages[chat.messages.length-1]?.sentAt }}</span>
                     </li>
                 </ul>
 
@@ -35,27 +35,28 @@
 
             <!-- inbox main section -->
             <!-- Displays only if there's a selected chat for small screens(mobile) -->
-            <div class="inbox-main h-full" :class="{'grid': inboxStore.loadedChat, 'hidden sm:grid': !inboxStore.loadedChat}">
+            <div v-if="inboxStore.loadedChat" class="inbox-main h-full" :class="{'grid': inboxStore.loadedChat, 'hidden sm:grid': !inboxStore.loadedChat}">
                 <div class="chat-header">
                     <chat_header/>
                 </div>
-                <div class="messages overflow-y-auto tiny-scrollbar">
-                    <ul v-if="inboxStore.loadedChat" class="px-2 pt-1">
+                <div v-if="inboxStore.loadedChat.messages.length > 0" class="messages overflow-y-auto tiny-scrollbar">
+                    <ul class="px-2 pt-1">
                         <li v-for="(message, index) in inboxStore.loadedChat?.messages" :key="message.id" class="w-full flex" :class="{'justify-end': message.senderEmail == accountStore.user.email_address}">
                             <message :msg_id="message.id"/>
                         </li>
                     </ul>
-                    <div v-else class="h-full flex items-center justify-center">
-                        <span v-if="$route.name != 'inbox'">Select chat from right list to preview messages</span>
-                        <div v-if="$route.name == 'inbox'" class="flex flex-col items-center">
-                            <span >One word leads to another</span>
-                            <span>Write that word in text area below...</span>
-                        </div>
-                    </div>
                 </div>              
+                <div v-else class="flex flex-col justify-center items-center h-[85%]">
+                    <span>One word leads to another</span>
+                    <span>Write that word in text area below...</span>
+                </div>
                 <div class="text-area">
                     <text_area/>
                 </div>  
+            </div>
+            <div v-else class="h-full flex flex-col items-center justify-center">
+                <span>No open chat!</span>
+                <span>Select chat from right list to preview messages</span>
             </div>
         </div>
     </div>

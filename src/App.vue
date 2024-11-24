@@ -1,10 +1,10 @@
 <template>
     <div class="h-screen font-serif bg-gray-50 dark:bg-gray-900 dark:text-white text-slate-800">
-        <error_banner/>
-        <RouterView />
-        <transition>
-            <bottom_sheet/>
-        </transition>
+      <error_banner/>
+      <RouterView />
+      <transition>
+        <bottom_sheet/>
+      </transition>
     </div>
 </template>
 

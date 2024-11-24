@@ -66,32 +66,41 @@
     import feed from '@/components/home/feed.vue'
     import challenges from '@/components/home/challenges.vue'
     import spaces from './spaces.vue';
-
+    import { useAccountStore } from '@/stores/account';
     import { useHomeStore } from '@/stores/home'
     import { useBreadCrumb } from '@/stores/bread_cramb';
     import { computed } from 'vue';
     import { onMounted } from 'vue';
 
     const homeStore = useHomeStore()
+    const accountStore = useAccountStore()
     const bread_cramb = useBreadCrumb()
     const activeTab = computed(() => homeStore.active_tab)
 
     const selectTab = (target: string) => {
         homeStore.activateTab(target)
-        if (bread_cramb.level > 1) {
+        if (bread_cramb.level == 2) {
             bread_cramb.replace(target)
-        } else {
+        } else if(bread_cramb.level == 1) {
             bread_cramb.push(target)
+        } else {
+            while (bread_cramb.level > 2) {
+                bread_cramb.pop()
+            }
+            bread_cramb.replace(target)
         }
     }
 
     onMounted(() => {
-      if (bread_cramb.items[0] != 'home') {
         bread_cramb.rebuild('home')
-        selectTab('feed')
-      }  
+        if (homeStore.active_tab.length > 0) {
+            selectTab(homeStore.active_tab)
+        } else {
+            selectTab('feed')
+        }
+        accountStore.activateNav('home')
 
-      homeStore.initializeEventListener()
+        homeStore.initializeEventListener()
     })
 </script>
 

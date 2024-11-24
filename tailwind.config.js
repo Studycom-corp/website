@@ -6,7 +6,11 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'mb': '375px'
+      }
+    },
   },
   plugins: [
     require('tailwind-scrollbar'),

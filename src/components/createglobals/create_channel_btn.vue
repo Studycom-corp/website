@@ -1,0 +1,6 @@
+<template>
+    <div class="p-2 h-max flex flex-col space-y-1 justify-center items-center">
+        <img src="/create_channel.png" class="h-8" alt="">
+        <span>Channel</span>
+    </div>
+</template>
